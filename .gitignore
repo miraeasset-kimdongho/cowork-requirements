@@ -1,1 +1,6 @@
 temp.md
+
+# Mattermost 자동화 - 비밀정보(토큰/웹훅) 절대 커밋 금지
+scripts/mm-config.local.json
+*.local.json
+.mm-state

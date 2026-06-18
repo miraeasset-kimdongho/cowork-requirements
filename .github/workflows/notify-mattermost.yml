@@ -1,0 +1,38 @@
+name: Notify Mattermost on main commit
+
+# main 브랜치에 push(커밋) 되면 Mattermost 채널에 PAT(REST API)로 알림을 전송한다.
+on:
+  push:
+    branches: [main]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post commit to Mattermost (PAT)
+        env:
+          BASE_URL: https://mattermost.dmove.co.kr
+          CHANNEL_ID: 1upwm4rjz38oxppnjzx5bab8he
+          # GitHub repo Settings > Secrets and variables > Actions 에 등록한 Personal Access Token
+          MM_TOKEN: ${{ secrets.MATTERMOST_TOKEN }}
+          # 셸 인젝션 방지를 위해 커밋 정보는 모두 env로 전달
+          MSG: ${{ github.event.head_commit.message }}
+          AUTHOR: ${{ github.event.head_commit.author.name }}
+          URL: ${{ github.event.head_commit.url }}
+          SHA: ${{ github.sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          if [ -z "${MM_TOKEN:-}" ]; then
+            echo "MATTERMOST_TOKEN secret이 설정되지 않았습니다." >&2
+            exit 1
+          fi
+          SHORT_SHA="${SHA:0:7}"
+          FIRST_LINE="$(printf '%s' "$MSG" | head -n1)"
+          TEXT="$(printf '🚀 **%s** main 커밋 by %s\n`%s`  %s\n%s' "$REPO" "$AUTHOR" "$SHORT_SHA" "$FIRST_LINE" "$URL")"
+          # jq로 안전하게 JSON 생성 후 REST API(/api/v4/posts)로 전송
+          jq -n --arg ch "$CHANNEL_ID" --arg msg "$TEXT" '{channel_id: $ch, message: $msg}' \
+            | curl -sf -X POST \
+                -H "Authorization: Bearer $MM_TOKEN" \
+                -H 'Content-Type: application/json' \
+                -d @- "$BASE_URL/api/v4/posts"
