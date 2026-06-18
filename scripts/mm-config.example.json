@@ -1,0 +1,7 @@
+{
+  "_comment": "이 파일을 'mm-config.local.json'으로 복사한 뒤 token을 채우세요. local.json은 .gitignore로 커밋 제외됩니다.",
+  "baseUrl": "https://mattermost.dmove.co.kr",
+  "channelId": "1upwm4rjz38oxppnjzx5bab8he",
+  "token": "여기에_Mattermost_Personal_Access_Token",
+  "headline": "미래에셋증권 내부 협업툴 업그레이드"
+}
