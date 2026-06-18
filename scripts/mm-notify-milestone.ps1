@@ -1,4 +1,4 @@
-<#
+﻿<#
   MILESTONE.md의 "(예정)" 일정을 읽어, 오늘이 일정일의 D-2 또는 D-1이면
   Mattermost 채널에 "미래에셋증권 내부 협업툴 업그레이드" 알림을 전송한다.
 
@@ -16,14 +16,14 @@ if (-not (Test-Path $configPath)) {
   Write-Error "설정 파일이 없습니다: $configPath  (mm-config.example.json을 복사해 채우세요)"
   exit 1
 }
-$cfg = Get-Content $configPath -Raw | ConvertFrom-Json
+$cfg = Get-Content $configPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $headline = if ($cfg.headline) { $cfg.headline } else { '미래에셋증권 내부 협업툴 업그레이드' }
 
 # 오늘 날짜(자정 기준)
 $today = (Get-Date).Date
 
 # MILESTONE.md에서 "(예정)" + "M월 D일" 패턴 추출
-$lines = Get-Content $milestonePath
+$lines = Get-Content $milestonePath -Encoding UTF8
 $hits = @()
 foreach ($line in $lines) {
   if ($line -notmatch '\(예정\)') { continue }
