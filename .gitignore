@@ -4,3 +4,6 @@ temp.md
 scripts/mm-config.local.json
 *.local.json
 .mm-state
+
+# 분석용으로 클론해둔 외부 레포들 — 이 레포에 중복 추적 금지
+codes/
