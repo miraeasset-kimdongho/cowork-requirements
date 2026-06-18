@@ -59,11 +59,13 @@ $message = $body.ToString().TrimEnd()
 
 # Mattermost REST API로 전송
 $uri = "$($cfg.baseUrl.TrimEnd('/'))/api/v4/posts"
-$headers = @{ Authorization = "Bearer $($cfg.token)"; 'Content-Type' = 'application/json' }
+$headers = @{ Authorization = "Bearer $($cfg.token)"; 'Content-Type' = 'application/json; charset=utf-8' }
 $payload = @{ channel_id = $cfg.channelId; message = $message } | ConvertTo-Json -Compress
+# PowerShell 5.1의 Invoke-RestMethod는 문자열 본문을 UTF-8로 보내지 않으므로 직접 바이트로 변환
+$payloadBytes = [System.Text.Encoding]::UTF8.GetBytes($payload)
 
 try {
-  Invoke-RestMethod -Uri $uri -Method Post -Headers $headers -Body $payload | Out-Null
+  Invoke-RestMethod -Uri $uri -Method Post -Headers $headers -Body $payloadBytes | Out-Null
   Write-Host "전송 완료: $($hits.Count)건"
   Write-Host $message
 } catch {
