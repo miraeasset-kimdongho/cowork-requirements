@@ -35,10 +35,12 @@ cowork-requirements/
 
 | 대상 | 저장소 |
 |------|--------|
-| Mattermost 데스크탑 앱 | _링크 추가_ |
-| Mattermost 모바일 앱 | _링크 추가_ |
-| Mattermost 사이크로스(Sycross) 플러그인 | _링크 추가_ |
-| Mattermost 캘린더 플러그인 | _링크 추가_ |
+| Mattermost 데스크탑 앱 | https://github.com/wign21dmove/mm-webapp |
+| Mattermost 모바일 앱 | https://github.com/wign21dmove/mm-mobile |
+| Mattermost 사이크로스(Sycross) 플러그인 | https://github.com/wign21dmove/mm-plugins-Sycros |
+| Mattermost 캘린더 플러그인 | https://github.com/wign21dmove/mm-plugins-calendar |
 | Jira / Confluence 커스텀 플러그인 | _링크 추가_ |
+| Mattermost 파일 블로커 | https://github.com/wign21dmove/mm-plugins-file-blocker |
+| Mattermost 로긴 | https://github.com/wign21dmove/mm-plugins-api |
 
 > 필요 시 행 추가
