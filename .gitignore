@@ -7,3 +7,6 @@ scripts/mm-config.local.json
 
 # 분석용으로 클론해둔 외부 레포들 — 이 레포에 중복 추적 금지
 codes/
+
+# 분석 산출물 — 커밋하지 않음(이 레포는 PRD/이슈 문서 저장소)
+review.md
